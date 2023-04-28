@@ -115,3 +115,19 @@ useEffect(() => {
     }
 }, [])
 ```
+### /autenticacao/layout.jsx
+Este layout não é tão imprecindivel para a lógica de autenticação. Porem é util, por conta que bloqueia o usuario de acessar a rota de cadastro de novo usuario ou de login caso exista um token existente no navegador. Esta lógica visa tratar a possibilidade de um usuario logar em outra conta estando com uma conta já logada.
+</br>
+Para tal, toda vez que a rota for carregada(useEffext), confere-se se existe o cookie de token da aplicação. Caso exista o usuario será redirecionado para dentro do sistema.
+
+```JavaScript
+const router = useRouter()
+
+useEffect(() => {
+    const { ['auth-cookie-test']: token } = nookies.get()
+
+    if (token) {
+        router.push('/sistema/dashboard')
+    }
+}, [])
+```
