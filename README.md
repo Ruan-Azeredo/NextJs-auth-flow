@@ -5,6 +5,42 @@ O segundo passo para a autenticação é garantir que enquanto o usuario estiver
 
 ## Dependencias
 Para react, o o tailwind UI pede a instalação das seguintes dependencias:
+-| https://tailwindui.com/documentation
 ```bash
 npm install @headlessui/react @heroicons/react
 ```
+
+Nookies para gerenciamento de cookies
+- | https://github.com/maticzav/nookies#readme
+```bash
+npm i nookies
+```
+
+## Arquitetura
+### context/Auth.jsx
+Neste arquivo, fica o Context de autenticação, que retorna as seguintes funções de maneira global para a aplicação:
+#### signIn()
+```JavaScript
+async function signIn(email, password) {
+
+    try {
+        const auth = // chamada da API, { Token }
+        const token = auth.token
+
+        if (auth) {
+            setCookie(null, 'auth-cookie-test', token, {
+                maxAge: 60 * 60 * 24 * 30 * 3, // 3 meses
+            })
+
+            router.push('/sistema/dashboard')
+        }
+    } catch (error) {
+        setError(error)
+    }
+}
+```
+A função de signIn() recebe o email e a senha, que espera-se serem atribuidos na sua chamada na tela de *Login*, primeiramente a função irá chamar a API, para pegar o token JWT, que deve ser utilizado em outras chamadas da API, alem de ficar guardado nos cookies do navegador.
+</br>
+Sendo assim, caso a API identifique de maneira correta o email e senha do usuario, e retorne o token, este deve ser setado como cookie(que é o proposito da função setCookie()). Caso, o email e senha não correspondam a um cookie, a API retornará uma mensagem de *error*, que neste caso é setada no context para poder ser exibida ao usuario atravez de um alerta.
+</br>
+É importante ressaltar que está função tem o objetivo de apenas pegar o token, as informações do usuario são captadas por outra função que deve utilizar o token como chave de acesso.
