@@ -17,7 +17,7 @@ npm i nookies
 ```
 
 ## Arquitetura
-### context/Auth.jsx
+### /context/Auth.jsx
 Neste arquivo, fica o Context de autenticação, que retorna as seguintes funções de maneira global para a aplicação:
 #### signIn()
 ```JavaScript
@@ -74,7 +74,7 @@ Está função é chamada quando o usuario clica no botão *Sign Out*, dentro do
 #### return()
 
 A as respectivas variaveis e funções passadas como *value*, as quais o sistema todo terá acesso são:
-```Javacript
+```JavaScript
 return (
     <AuthContext.Provider value={{authData, error, signIn, signOut, verifyToken}}>
         {children}
@@ -83,3 +83,33 @@ return (
 ```
 
 - Vale ressaltar, que como todo context, deve-se envolver toda a aplicação com o Provider, neste caso, **<AuthProvider>**
+
+### /sistema/layout.jsx
+Este arquivo possui o componente *sistemaLayout()* que envolve todas as rotas que deve estar privadas na aplicação. Desta forma, dentro desta função, a cada atualização da página(useEffect), deve-se verificar se o token do usuario existe.
+```JavaScript
+    const { ['auth-cookie-test']: token } = nookies.get()
+```
+Caso exista, ele deve trazer os dados deste usuario, o que é feito atravez da função **verifyToken**, caso não exista, redirecionar para página de login.
+```JavaScript
+if (!token) {
+    router.push('/autenticacao/login')
+} else{
+    verifyToken(token)    
+}
+```
+Toda a lógica:
+```JavaScript
+const { verifyToken } = useContext(AuthContext)
+
+const router = useRouter()
+
+useEffect(() => {
+    const { ['auth-cookie-test']: token } = nookies.get()
+
+    if (!token) {
+        router.push('/autenticacao/login')
+    } else{
+        verifyToken(token)    
+    }
+}, [])
+```
