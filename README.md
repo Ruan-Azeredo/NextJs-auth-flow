@@ -3,6 +3,8 @@ O fluxo de autenticação desenvolvido neste projet, leva em consideração o pa
 </br>
 O segundo passo para a autenticação é garantir que enquanto o usuario estiver logado no sistema, ele deve ter acesso as rotas privadas, que neste projeto são as que estão no sistema. Caso constrario, ele deve ser redirecionado a página de login.
 
+- Este projeto contem o arquivo **AuthService.js** que simula uma API, onde ele é referenciado, é um lugar onde deveria ser feita uma chamda ao Back-end.
+
 ## Dependencias
 Para react, o o tailwind UI pede a instalação das seguintes dependencias:
 -| https://tailwindui.com/documentation
