@@ -70,3 +70,16 @@ function signOut() {
 }
 ```
 Está função é chamada quando o usuario clica no botão *Sign Out*, dentro do sistema,  ela é responsavel por apagar o cookie no navegador, e setar as infos do usuario como undefined. Depois disso, qualquer *reload* deve enviar o usuario, que agora não está mais autenticado, para a página de login.
+
+#### return()
+
+A as respectivas variaveis e funções passadas como *value*, as quais o sistema todo terá acesso são:
+```Javacript
+return (
+    <AuthContext.Provider value={{authData, error, signIn, signOut, verifyToken}}>
+        {children}
+    </AuthContext.Provider>
+)
+```
+
+- Vale ressaltar, que como todo context, deve-se envolver toda a aplicação com o Provider, neste caso, **<AuthProvider>**
