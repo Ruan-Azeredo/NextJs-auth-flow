@@ -12,6 +12,18 @@ Para react, o o tailwind UI pede a instalação das seguintes dependencias:
 npm install @headlessui/react @heroicons/react
 ```
 
+Lib de componentes tailwind
+-| https://daisyui.com/
+```bash
+npm i daisyui
+```
+
+Lib para por mascara nos inputs
+-| https://github.com/sanniassin/react-input-mask
+```bash
+npm install react-input-mask@next --save
+```
+
 Nookies para gerenciamento de cookies
 - | https://github.com/maticzav/nookies#readme
 ```bash
